@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>星辰变</title>
+</head>
+<style>
+    .pagination li{
+        text-decoration: none;  /*去掉前面的圆点*/
+        list-style: none;
+        float: left;
+        border: 2px solid #FFFFFF;
+    }
+</style>
+<body>
+<h2>《星辰变》</h2>
+<ul>
+{% for novel in book_list %}
+    <a href="/chapter/{{novel.id}} "><li>{{ novel.title }}</li></a>
+
+{% endfor %}
+</ul>
+
+<nav aria-label="Page navigation">
+  <ul class="pagination">
+
+    {% if book_list.has_previous %}
+        <li><a href="?page={{ book_list.previous_page_number }}" aria-label="Previous"><span aria-hidden="true">上一页</span></a></li>
+    {% else %}
+            <li class="disabled"><a href="" aria-label="Previous"><span aria-hidden="true">上一页</span></a></li>
+    {% endif %}
+{#  disabled是当你的按钮不满足的时候不可以点击了#}
+
+    {% for i in pageRange %}
+         {% if current_num == i %}
+          <li class="active"><a href="?page={{ i }}">{{ i }}</a></li>
+
+         {% else %}
+          <li><a href="?page={{ i }}">{{ i }}</a></li>
+         {% endif %}
+
+
+    {% endfor %}
+
+
+    <li>
+      <a href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+</body>
+</html>
